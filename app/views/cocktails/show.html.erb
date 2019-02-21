@@ -1,0 +1,9 @@
+<h1><%= @cocktail.name.capitalize %></h1>
+<h3>Recipe</h3>
+<ul>
+  <% @cocktail.doses.each do |dose| %>
+    <li><%= dose.ingredient.name.capitalize %>: <%= dose.description.capitalize %> (<%= link_to"Delete", cocktail_dose_path(@cocktail, dose), method: :delete, data: { confirm: "Are you sure?" }, class: "ml-2 text-danger" %>)</li>
+  <% end %>
+</ul>
+
+  <%= link_to "Add a dose", new_cocktail_dose_path(@cocktail), class: "btn btn-outline-primary" %>
