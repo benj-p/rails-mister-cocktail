@@ -1,6 +1,7 @@
 <h1>Create a cocktail</h1>
 
 <%= simple_form_for [@cocktail] do |f| %>
-  <%= f.input :name %>
+  <%= f.input :name, placeholder: "mojito" %>
+  <%= f.input :image, placeholder: "https://www.thedailymeal.com/sites/default/files/recipe/2016/Virgin%20Mojito%20Recipe%20MAIN.jpg" %>
   <%= f.submit "Submit", class: "btn btn-primary" %>
 <% end %>

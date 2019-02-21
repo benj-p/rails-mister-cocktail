@@ -1,1 +1,11 @@
 // Specific CSS for your home-page
+.cards {
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+  grid-gap: 16px;
+  padding: 16px 0px;
+}
+
+.index-container {
+  margin-top: 16px;
+}

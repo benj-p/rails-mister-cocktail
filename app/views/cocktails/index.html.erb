@@ -1,9 +1,11 @@
-<h1>All cocktails</h1>
+<div class="container index-container">
+  <h2> <%= @no_cocktails_found %> </h2>
 
-<ul>
-  <% @cocktails.each do |cocktail| %>
-    <li><%= link_to cocktail.name, cocktail_path(cocktail) %></li>
-  <% end %>
-</ul>
-
-  <%= link_to "Add a cocktail", new_cocktail_path, class: "btn btn-outline-primary" %>
+  <div class="cards">
+    <% @cocktails.each do |cocktail| %>
+      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('<%= cocktail.image %>')">
+        <h2><%= link_to cocktail.name, cocktail_path(cocktail) %></h2>
+      </div>
+    <% end %>
+  </div>
+</div>
