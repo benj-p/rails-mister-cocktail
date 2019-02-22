@@ -4,23 +4,34 @@
   </div>
 </div>
 
+
+
 <div class="container">
-  <h2>Recipe</h2>
-  <ul>
-    <% @cocktail.doses.each do |dose| %>
-      <li><%= dose.ingredient.name.capitalize %>: <%= dose.description.capitalize %> (<%= link_to"Delete", cocktail_dose_path(@cocktail, dose), method: :delete, data: { confirm: "Are you sure?" }, class: "text-danger" %>)</li>
-    <% end %>
-  </ul>
+  <div class="row">
 
-  <h3>Add an ingredient</h3>
+      <div class="col-12 col-lg-8">
+        <div class="flat-section">
+           <h2>Recipe</h2>
+            <ul>
+              <% @cocktail.doses.each do |dose| %>
+                <li><%= dose.ingredient.name.capitalize %>: <%= dose.description.capitalize %> (<%= link_to"Delete", cocktail_dose_path(@cocktail, dose), method: :delete, data: { confirm: "Are you sure?" }, class: "text-danger" %>)</li>
+              <% end %>
+            </ul>
+        </div>
+      </div>
 
-  <%= simple_form_for [@cocktail, @dose], html: { class: "dose-form"} do |f| %>
-    <%= f.association :ingredient, selected: 1, input_html: { class: "select2" } %>
-    <%= f.input :description %>
-    <%= f.submit "Submit", class: "btn btn-primary" %>
-  <% end %>
+      <div class="col-12 col-lg-4">
+        <h3>Add an ingredient</h3>
 
-</div>
+        <%= simple_form_for [@cocktail, @dose], html: { class: "dose-form"} do |f| %>
+          <%= f.association :ingredient, selected: 1, input_html: { class: "select2" } %>
+          <%= f.input :description %>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
 
 <!-- <script>
   window.reload = function(e) {
