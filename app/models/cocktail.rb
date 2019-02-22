@@ -9,5 +9,4 @@ class Cocktail < ApplicationRecord
   def capitalize_name
     name.capitalize!
   end
-
 end
