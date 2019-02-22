@@ -1,10 +1,13 @@
-<div class="container index-container">
+<div class="container content-container">
   <h2> <%= @no_cocktails_found %> </h2>
 
   <div class="cards">
     <% @cocktails.each do |cocktail| %>
       <div class="card-cocktail" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('<%= cl_image_path cocktail.photo %>')">
         <h2><%= link_to cocktail.name, cocktail_path(cocktail) %></h2>
+        <% unless cocktail.reviews.empty? %>
+        <span class="card-average-rating"><%= ("<i class=\"fas fa-star\"></i>" * cocktail.reviews.average(:rating)).html_safe %></span>
+        <% end %>
       </div>
     <% end %>
   </div>

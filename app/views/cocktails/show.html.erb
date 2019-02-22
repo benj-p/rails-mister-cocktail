@@ -1,6 +1,7 @@
 <div class="header" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('<%= cl_image_path @cocktail.photo %>')">
   <div class="container">
     <h1><%= @cocktail.name.capitalize %></h1>
+    <span class="header-average-rating"><%= ("<i class=\"fas fa-star\"></i>" * @cocktail.reviews.average(:rating)).html_safe %></span>
   </div>
 </div>
 
@@ -10,19 +11,20 @@
        <h2>Recipe</h2>
         <ul>
           <% @cocktail.doses.each do |dose| %>
-            <li><%= dose.ingredient.name.capitalize %>: <%= dose.description.capitalize %> (<%= link_to"Delete", cocktail_dose_path(dose), method: :delete, data: { confirm: "Are you sure?" }, class: "text-danger" %>)</li>
+            <li><%= dose.ingredient.name.capitalize %>: <%= dose.description.capitalize %> (<%= link_to"Delete", dose_path(dose), method: :delete, data: { confirm: "Are you sure?" }, class: "text-danger" %>)</li>
           <% end %>
         </ul>
     </div>
 
     <div class="col-12 col-lg-4">
-      <h3>Add an ingredient</h3>
-
-      <%= simple_form_for [@cocktail, @dose], html: { class: "dose-form"} do |f| %>
-        <%= f.association :ingredient, selected: 1, input_html: { class: "select2" } %>
-        <%= f.input :description %>
-        <%= f.submit "Submit", class: "btn btn-primary" %>
-      <% end %>
+      <strong>Add an ingredient</strong>
+      <p>
+        <%= simple_form_for [@cocktail, @dose], html: { class: "dose-form"} do |f| %>
+          <%= f.association :ingredient, selected: 1, input_html: { class: "select2" } %>
+          <%= f.input :description, placeholder: '4 cl (example)' %>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
+        <% end %>
+      </p>
     </div>
   </div>
 
@@ -31,6 +33,10 @@
     <div class="col-12 col-lg-8">
       <h2>Reviews</h2>
 
+      <% if @cocktail.reviews.empty? %>
+      <p>There are no reviews for this cocktail yet.</p>
+      <% end %>
+
       <% @cocktail.reviews.each do |review| %>
         <div class="card-review">
           <p><%= review.user %> - <%= ("<i class=\"fas fa-star\"></i>" * review.rating).html_safe %></p>
@@ -38,13 +44,15 @@
         </div>
       <% end %>
 
-      <h3>Add a review</h3>
-      <%= simple_form_for [@cocktail, @review] do |f| %>
-        <%= f.input :user %>
-        <%= f.input :content %>
-        <%= f.input :rating, as: :numeric %>
-        <%= f.submit "Submit", class: "btn btn-primary" %>
+      <strong>Add a review</strong>
+      <p>
+        <%= simple_form_for [@cocktail, @review] do |f| %>
+          <%= f.input :user, label: 'Username' %>
+          <%= f.input :content, label: 'Comment' %>
+          <%= f.input :rating, collection: 1..5, label: 'Rating (1 to 5)' %>
+          <%= f.submit "Submit", class: "btn btn-primary" %>
       <% end %>
+      </p>
     </div>
   </div>
 </div>

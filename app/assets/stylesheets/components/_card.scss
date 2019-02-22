@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   h2 {
     font-size: 2em;
     padding: 4px 16px;
@@ -21,6 +22,10 @@
       background-color: rgba(200,200,200, 0.8)
     }
   }
+  .card-average-rating {
+    color: rgba(255,255,255, 0.6);
+    font-size: 1em;
+  }
 }
 
 .card-review {
@@ -30,5 +35,8 @@
   margin-bottom: 8px;
   i {
     color: rgb(120,120,120);
+  }
+  &:last-of-type {
+    margin-bottom: 24px;
   }
 }
