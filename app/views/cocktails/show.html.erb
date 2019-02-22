@@ -12,7 +12,7 @@
        <h2>Recipe</h2>
         <ul>
           <% @cocktail.doses.each do |dose| %>
-            <li><%= dose.ingredient.name.capitalize %>: <%= dose.description.capitalize %> (<%= link_to"Delete", cocktail_dose_path(@cocktail, dose), method: :delete, data: { confirm: "Are you sure?" }, class: "text-danger" %>)</li>
+            <li><%= dose.ingredient.name.capitalize %>: <%= dose.description.capitalize %> (<%= link_to"Delete", cocktail_dose_path(dose), method: :delete, data: { confirm: "Are you sure?" }, class: "text-danger" %>)</li>
           <% end %>
         </ul>
     </div>
@@ -34,7 +34,10 @@
       <h2>Reviews</h2>
 
       <% @cocktail.reviews.each do |review| %>
-        <p><%= review.user %> - <%= review.rating %> - <%= review.content %></p>
+        <div class="card-review">
+          <p><%= review.user %> - <%= ("<i class=\"fas fa-star\"></i>" * review.rating).html_safe %></p>
+          <p class="mb-0">« <%= review.content %> »</p>
+        </div>
       <% end %>
 
       <h3>Add a review</h3>

@@ -4,7 +4,7 @@ class CocktailsController < ApplicationController
   def index
     @query = params["query"]
     if @query
-      @cocktails = Cocktail.where("name LIKE '%#{@query}%'")
+      @cocktails = Cocktail.where("LOWER(name) LIKE '%#{@query.downcase}%'")
       if @cocktails.size.zero?
         @no_cocktails_found = "We couldn't find any cocktails, check out all our cocktails below..."
         @cocktails = Cocktail.all
