@@ -1,4 +1,4 @@
-<div class="header" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('<%= @cocktail.image %>')">
+<div class="header" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('<%= cl_image_path @cocktail.photo %>')">
   <div class="container">
     <h1><%= @cocktail.name.capitalize %></h1>
   </div>
