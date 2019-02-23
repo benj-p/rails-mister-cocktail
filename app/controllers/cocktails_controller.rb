@@ -2,7 +2,20 @@ class CocktailsController < ApplicationController
   before_action :set_cocktail, only:[:show, :edit, :update]
 
   def index
-    @query = params["query"]
+    @query = params[:query]
+
+    def sort_by_rating
+      @cocktails_rating = @cocktails.map do |cocktail|
+        { cocktail: cocktail, rating: cocktail.reviews.average(:rating) || 0 }
+      end
+      @cocktails_rating_sorted = @cocktails_rating.sort_by do |cocktail|
+        - cocktail[:rating]
+      end
+      @cocktails = @cocktails_rating_sorted.map do |cocktail|
+        cocktail[:cocktail]
+      end
+    end
+
     if @query
       @cocktails = Cocktail.where("LOWER(name) LIKE '%#{@query.downcase}%'")
       if @cocktails.size.zero?
@@ -12,6 +25,11 @@ class CocktailsController < ApplicationController
     else
       @cocktails = Cocktail.all
     end
+
+    if params[:sort] == "rating"
+      sort_by_rating
+    end
+
   end
 
   def show
