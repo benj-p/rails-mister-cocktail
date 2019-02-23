@@ -8,6 +8,10 @@ class CocktailsController < ApplicationController
       @cocktails = @cocktails.sort_by { |cocktail| cocktail.reviews.average(:rating) || 0 }.reverse
     end
 
+    def sort_by_name
+      @cocktails = @cocktails.sort_by { |cocktail| cocktail.name }
+    end
+
     if @query
       @cocktails = Cocktail.where("LOWER(name) LIKE '%#{@query.downcase}%'")
       if @cocktails.size.zero?
@@ -18,8 +22,11 @@ class CocktailsController < ApplicationController
       @cocktails = Cocktail.all
     end
 
-    if params[:sort] == "rating"
+    case params[:sort]
+    when "rating"
       sort_by_rating
+    when "name"
+      sort_by_name
     end
   end
 

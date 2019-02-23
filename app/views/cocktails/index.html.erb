@@ -1,7 +1,10 @@
 <div class="container content-container">
   <p> <%= @no_cocktails_found %> </p>
+  <p>
+    Sort by: <%= link_to "rating", cocktails_path(sort: :rating, query: params[:query]) %> |
+  <%= link_to "name", cocktails_path(sort: :name, query: params[:query]) %>
+  </p>
 
-  <%= link_to "Sort by rating", cocktails_path(sort: :rating, query: params[:query]) %>
 
   <div class="cards">
     <% @cocktails.each do |cocktail| %>
