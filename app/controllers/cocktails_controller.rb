@@ -5,15 +5,7 @@ class CocktailsController < ApplicationController
     @query = params[:query]
 
     def sort_by_rating
-      @cocktails_rating = @cocktails.map do |cocktail|
-        { cocktail: cocktail, rating: cocktail.reviews.average(:rating) || 0 }
-      end
-      @cocktails_rating_sorted = @cocktails_rating.sort_by do |cocktail|
-        - cocktail[:rating]
-      end
-      @cocktails = @cocktails_rating_sorted.map do |cocktail|
-        cocktail[:cocktail]
-      end
+      @cocktails = @cocktails.sort_by { |cocktail| cocktail.reviews.average(:rating) || 0 }.reverse
     end
 
     if @query
@@ -29,7 +21,6 @@ class CocktailsController < ApplicationController
     if params[:sort] == "rating"
       sort_by_rating
     end
-
   end
 
   def show
