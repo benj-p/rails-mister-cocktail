@@ -9,7 +9,7 @@ class CocktailsController < ApplicationController
     end
 
     def sort_by_name
-      @cocktails = @cocktails.sort_by { |cocktail| cocktail.name }
+      @cocktails = @cocktails.sort_by(&:name)
     end
 
     if @query
